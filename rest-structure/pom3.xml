@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.scp</groupId>
+  <artifactId>blockaccount</artifactId>
+  <version>1.2.1${build.version}</version> 
+  <packaging>jar</packaging>
+
+  <name>blockaccount</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+	</properties>
+
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-cassandra -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-cassandra</artifactId>
+			<version>2.1.5.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>jfrog-releases</name>
+			<url>http://172.31.129.21:8081/artifactory/middleware-scp</url>
+		</repository>
+		<!-- <snapshotRepository> <id>snapshots</id> <name>jfrog-snapshots</name> 
+			<url>http://172.31.129.21:8081/artifactory/middleware-scp</url> </snapshotRepository> -->
+	</distributionManagement>
+	<profiles>
+		<profile>
+			<id>nonsnapshot</id>
+			<properties>
+				<profile.name>production</profile.name>
+				<build.version></build.version>
+			</properties>
+
+		</profile>
+
+		<profile>
+			<id>snapshot</id>
+			<properties>
+				<profile.name>development</profile.name>
+				<build.version>-SNAPSHOT</build.version>
+			</properties>
+
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
